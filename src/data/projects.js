@@ -2,26 +2,26 @@
 // 📁 Données du Portfolio
 // ==============================
 
-import travelNowImg from '@/assets/card/card_1/card_travel_now01.png';
+import travelNowImg from '@/assets/card/card_1/card_travel_now01.webp';
 import nodeJsLogo from '@/assets/icons/node_js.png';
 
 import docClientImg from '@/assets/card/card_2/card_additi.png';
 import phpLogo from '@/assets/icons/php.png';
 import symfonyLogo from '@/assets/icons/symfony.png';
 
-import fishingTrackerImg from '@/assets/card/card_3/card_fishing_trackerALL.png';
+import fishingTrackerImg from '@/assets/card/card_3/card_fishing_trackerALL.webp';
 import flutterLogo from '@/assets/icons/flutter.png';
 
-import enchereImg from '@/assets/card/card_4/enchere.png';
+import enchereImg from '@/assets/card/card_4/enchere.webp';
 import javaLogo from '@/assets/icons/java.png';
 import springBootLogo from '@/assets/icons/spring_boot.png';
 
-import quizCdaImg from '@/assets/card/small_card/sm_02/quiz_cda.png';
-import jeuVieImg from '@/assets/card/small_card/sm_03/jeu_de_la_vie.png';
-import penduImg from '@/assets/card/small_card/sm_04/jeu_du_pendu.png';
-import monopolyImg from '@/assets/card/small_card/sm_05/monopoly.png';
-import problemosImg from '@/assets/card/small_card/sm_06/problemos_crop.png';
-import cinemaImg from '@/assets/card/small_card/sm_08/wordpress.png';
+import quizCdaImg from '@/assets/card/small_card/sm_02/quiz_cda.webp';
+import jeuVieImg from '@/assets/card/small_card/sm_03/jeu_de_la_vie.webp';
+import penduImg from '@/assets/card/small_card/sm_04/jeu_du_pendu.webp';
+import monopolyImg from '@/assets/card/small_card/sm_05/monopoly.webp';
+import problemosImg from '@/assets/card/small_card/sm_06/problemos_crop.webp';
+import cinemaImg from '@/assets/card/small_card/sm_08/wordpress.webp';
 import jsLogo from '@/assets/icons/js.png';
 import pythonLogo from '@/assets/icons/python.png';
 import wordpressLogo from '@/assets/icons/wordpress.png';
