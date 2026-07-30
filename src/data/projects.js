@@ -5,7 +5,7 @@
 import travelNowImg from '@/assets/card/card_1/card_travel_now01.webp';
 import nodeJsLogo from '@/assets/icons/node_js.png';
 
-import docClientImg from '@/assets/card/card_2/card_additi.png';
+import docClientImg from '@/assets/card/card_2/card_additi.webp';
 import phpLogo from '@/assets/icons/php.png';
 import symfonyLogo from '@/assets/icons/symfony.png';
 
