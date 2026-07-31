@@ -7,15 +7,27 @@
     >
       <defs>
         <linearGradient id="potGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#c96a44" />
-          <stop offset="50%" stop-color="#e58363" />
-          <stop offset="100%" stop-color="#a84c28" />
+          <stop offset="0%" stop-color="#a84c28" />
+          <stop offset="14%" stop-color="#c96a44" />
+          <stop offset="38%" stop-color="#f0a17d" />
+          <stop offset="58%" stop-color="#dd8258" />
+          <stop offset="82%" stop-color="#b85a34" />
+          <stop offset="100%" stop-color="#8c3d21" />
         </linearGradient>
 
         <linearGradient id="vineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#82b98b" />
-          <stop offset="100%" stop-color="#386b4d" />
+          <stop offset="0%" stop-color="#9bcaa0" />
+          <stop offset="50%" stop-color="#5f9e73" />
+          <stop offset="100%" stop-color="#2f5e42" />
         </linearGradient>
+
+        <clipPath id="potBodyClip">
+          <path d="M 103 233 C 100 255, 102 278, 114 296 L 166 296 C 178 278, 180 255, 177 233 Z" />
+        </clipPath>
+
+        <clipPath id="potRimFrontClip">
+          <rect x="90" y="226" width="100" height="16" />
+        </clipPath>
 
         <linearGradient id="soilGrad" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#4a3626" />
@@ -48,6 +60,10 @@
         <!-- Feuille en cœur réutilisable, dessinée centrée sur (0,0) -->
         <symbol id="heartLeaf" viewBox="-10 -10 20 20">
           <path d="M0,-8 C-9,-14 -16,-4 -8,2 C-4,6 0,9 0,9 C0,9 4,6 8,2 C16,-4 9,-14 0,-8 Z" />
+          <path class="leaf-vein" d="M0,-6 C-1,-1 -1,4 0,8" fill="none" stroke="#1f4a33" stroke-width="0.8" opacity="0.3" stroke-linecap="round" />
+          <path class="leaf-vein" d="M0,-3 C-3,-1 -5,1 -6.5,3" fill="none" stroke="#1f4a33" stroke-width="0.6" opacity="0.22" stroke-linecap="round" />
+          <path class="leaf-vein" d="M0,-3 C3,-1 5,1 6.5,3" fill="none" stroke="#1f4a33" stroke-width="0.6" opacity="0.22" stroke-linecap="round" />
+          <ellipse cx="-3.2" cy="-4.5" rx="2" ry="1.1" fill="#ffffff" opacity="0.2" transform="rotate(-30 -3.2 -4.5)" />
         </symbol>
       </defs>
 
@@ -147,10 +163,51 @@
 
         <!-- POT -->
         <g class="pot">
-          <ellipse cx="140" cy="226" rx="40" ry="7" fill="url(#soilGrad)" />
+          <!-- Rebord avec un peu d'épaisseur -->
           <rect x="98" y="221" width="84" height="14" rx="4" fill="url(#potGrad)" />
-          <polygon points="103,233 177,233 166,296 114,296" fill="url(#potGrad)" />
-          <ellipse cx="140" cy="296" rx="26" ry="5" fill="#8a3c1e" />
+          <rect x="98" y="221" width="84" height="2.5" rx="1.2" fill="#f4b896" opacity="0.55" />
+          <rect x="98" y="232.5" width="84" height="2" fill="#7a3419" opacity="0.35" />
+
+          <!-- Corps légèrement galbé -->
+          <path d="M 103 233 C 100 255, 102 278, 114 296 L 166 296 C 178 278, 180 255, 177 233 Z" fill="url(#potGrad)" />
+
+          <!-- Reflet et ombre du corps, clippés dans sa silhouette -->
+          <g clip-path="url(#potBodyClip)">
+            <rect x="108" y="233" width="12" height="66" rx="6" fill="#ffcaa8" opacity="0.32" />
+            <rect x="163" y="233" width="14" height="66" fill="#6f2c14" opacity="0.28" />
+            <path d="M 104 262 C 130 267, 150 267, 176 262" fill="none" stroke="#7a3419" stroke-width="1.4" opacity="0.25" stroke-linecap="round" />
+          </g>
+
+          <!-- Terre, avec un peu de relief -->
+          <ellipse cx="140" cy="226" rx="40" ry="7" fill="url(#soilGrad)" />
+          <path d="M 104 224 C 118 219, 162 219, 176 224" fill="none" stroke="#5c4330" stroke-width="1.6" opacity="0.5" stroke-linecap="round" />
+          <ellipse cx="126" cy="227" rx="2.4" ry="1.1" fill="#1e120b" opacity="0.4" />
+          <ellipse cx="151" cy="228.5" rx="1.8" ry="0.9" fill="#1e120b" opacity="0.35" />
+          <ellipse cx="140" cy="224.5" rx="2" ry="1" fill="#1e120b" opacity="0.3" />
+
+          <!-- Lèvre avant du rebord : cache le bas de la terre pour une
+               vraie perspective (on regarde légèrement de haut, le bord
+               avant du pot doit passer devant la terre, pas derrière) -->
+          <g clip-path="url(#potRimFrontClip)">
+            <ellipse cx="140" cy="226" rx="41" ry="8" fill="url(#potGrad)" />
+            <ellipse cx="140" cy="225.5" rx="41" ry="7.4" fill="#f4b896" opacity="0.3" />
+          </g>
+
+          <!-- Simple liseré à la base, plus de flaque d'ombre -->
+          <path d="M 115 296 Q 140 300 165 296" fill="none" stroke="#6f2c14" stroke-width="1.6" opacity="0.45" stroke-linecap="round" />
+        </g>
+
+        <!-- LIANE DE DEVANT : dessinée après le pot, donc affichée
+             par-dessus lui, pour un peu de profondeur -->
+        <g class="hanging-vines front-vine">
+          <g class="vine-cluster" style="--delay:.04s; --duration:1.4s;">
+            <path class="vine-stem" pathLength="100"
+              d="M135 224 C 118 232, 112 250, 122 268 C 130 284, 118 300, 126 320 C 130 335, 124 345, 128 358" />
+            <g class="leaf-anchor" transform="translate(115 250) rotate(-24)"><use href="#heartLeaf" class="hleaf side-l" style="--t:.22" x="-7.5" y="-7.5" width="15" height="15" /></g>
+            <g class="leaf-anchor" transform="translate(127 283) rotate(20)"><use href="#heartLeaf" class="hleaf side-r" style="--t:.48" x="-7.5" y="-7.5" width="15" height="15" /></g>
+            <g class="leaf-anchor" transform="translate(118 308) rotate(-16)"><use href="#heartLeaf" class="hleaf side-l" style="--t:.72" x="-7" y="-7" width="14" height="14" /></g>
+            <g class="leaf-anchor" transform="translate(128 345) rotate(14)"><use href="#heartLeaf" class="hleaf side-r" style="--t:.9" x="-6.5" y="-6.5" width="13" height="13" /></g>
+          </g>
         </g>
 
         <!-- ARROSOIR -->
@@ -235,6 +292,10 @@ const grown = ref(false)
 .hanging-vines,
 .bush {
   pointer-events: none;
+}
+
+.pot {
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.22));
 }
 
 /* ===================== LIANES ===================== */
