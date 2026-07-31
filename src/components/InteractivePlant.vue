@@ -23,10 +23,27 @@
         </linearGradient>
 
         <linearGradient id="canBodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#164c4a" />
-          <stop offset="45%" stop-color="#1f6b68" />
-          <stop offset="100%" stop-color="#123f3d" />
+          <stop offset="0%" stop-color="#0f3d3b" />
+          <stop offset="18%" stop-color="#1c615e" />
+          <stop offset="45%" stop-color="#2a9891" />
+          <stop offset="72%" stop-color="#1a5f5c" />
+          <stop offset="100%" stop-color="#0c3230" />
         </linearGradient>
+
+        <linearGradient id="canRimGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#68c2ba" />
+          <stop offset="100%" stop-color="#2c7a74" />
+        </linearGradient>
+
+        <radialGradient id="canGloss" cx="32%" cy="18%" r="70%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.38" />
+          <stop offset="45%" stop-color="#ffffff" stop-opacity="0.08" />
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+        </radialGradient>
+
+        <clipPath id="canBodyClip">
+          <path d="M 193 48 C 189 82, 197 110, 205 118 L 245 118 C 253 110, 261 82, 257 48 Z" />
+        </clipPath>
 
         <!-- Feuille en cœur réutilisable, dessinée centrée sur (0,0) -->
         <symbol id="heartLeaf" viewBox="-10 -10 20 20">
@@ -138,20 +155,43 @@
 
         <!-- ARROSOIR -->
         <g class="watering-can">
+          <!-- Anse : base sombre + surliage clair pour donner du volume -->
           <path
             d="M 250 58 C 296 42, 302 92, 264 96 C 249 98, 246 84, 260 80 C 268 78, 270 86, 262 88"
-            fill="none" stroke="#154c4a" stroke-width="7" stroke-linecap="round"
+            fill="none" stroke="#0e2f2d" stroke-width="8" stroke-linecap="round"
           />
+          <path
+            d="M 250 58 C 296 42, 302 92, 264 96 C 249 98, 246 84, 260 80 C 268 78, 270 86, 262 88"
+            fill="none" stroke="#2f8b84" stroke-width="4" stroke-linecap="round" opacity="0.8"
+          />
+
+          <!-- Corps -->
           <path d="M 193 48 C 189 82, 197 110, 205 118 L 245 118 C 253 110, 261 82, 257 48 Z" fill="url(#canBodyGrad)" />
-          <rect x="210" y="58" width="4" height="52" rx="4.5" fill="#4a9a91" opacity="0.55" />
-          <rect x="228" y="58" width="4" height="52" rx="4.5" fill="#4a9a91" opacity="0.4" />
-          <rect x="201" y="115" width="48" height="4.5" rx="2" fill="#123f3d" />
-          <rect x="204" y="121" width="42" height="3" rx="1.5" fill="#123f3d" opacity="0.7" />
-          <ellipse cx="225" cy="48" rx="32" ry="9" fill="#4a9a91" />
-          <ellipse cx="225" cy="47.5" rx="26" ry="6.5" fill="#123331" />
-          <path d="M 197 102 C 178 96, 155 82, 142 66" fill="none" stroke="#123f3d" stroke-width="11" stroke-linecap="round" />
-          <path d="M 197 102 C 178 96, 155 82, 142 66" fill="none" stroke="#1f6b68" stroke-width="7" stroke-linecap="round" />
-          <ellipse cx="140" cy="64" rx="10" ry="4.5" fill="#4a9a91" transform="rotate(-35 140 64)" />
+
+          <!-- Reflets et ombres, clippés dans la silhouette du corps -->
+          <g clip-path="url(#canBodyClip)">
+            <rect x="188" y="38" width="80" height="92" fill="url(#canGloss)" />
+            <rect x="197" y="58" width="3" height="54" rx="1.5" fill="#082523" opacity="0.4" />
+            <rect x="209" y="56" width="5" height="56" rx="2.5" fill="#6fd0c7" opacity="0.55" />
+            <rect x="228" y="56" width="4" height="56" rx="2" fill="#6fd0c7" opacity="0.3" />
+          </g>
+
+          <!-- Pieds / bagues à la base -->
+          <rect x="199" y="115" width="52" height="5" rx="2.5" fill="#0e2f2d" />
+          <rect x="203" y="121.5" width="44" height="3.2" rx="1.6" fill="#0e2f2d" opacity="0.65" />
+          <rect x="206.5" y="126.5" width="37" height="2.4" rx="1.2" fill="#0e2f2d" opacity="0.4" />
+
+          <!-- Ouverture haute, avec profondeur -->
+          <ellipse cx="225" cy="48" rx="32" ry="9" fill="url(#canRimGrad)" />
+          <ellipse cx="225" cy="47.3" rx="26" ry="6.6" fill="#0e2f2d" />
+          <path d="M 202 44.5 A 25 6.2 0 0 1 248 44.5" fill="none" stroke="#7fdcd2" stroke-width="1.4" opacity="0.5" stroke-linecap="round" />
+
+          <!-- Bec verseur : trois tons pour un vrai volume cylindrique -->
+          <path d="M 197 102 C 178 96, 155 82, 142 66" fill="none" stroke="#0e2f2d" stroke-width="12" stroke-linecap="round" />
+          <path d="M 197 102 C 178 96, 155 82, 142 66" fill="none" stroke="#2f8b84" stroke-width="7" stroke-linecap="round" />
+          <path d="M 197 102 C 178 96, 155 82, 142 66" fill="none" stroke="#7fdcd2" stroke-width="2.2" stroke-linecap="round" opacity="0.5" />
+          <ellipse cx="140" cy="64" rx="10.5" ry="4.8" fill="url(#canRimGrad)" transform="rotate(-35 140 64)" />
+          <ellipse cx="140" cy="64" rx="7" ry="3" fill="#123331" transform="rotate(-35 140 64)" />
         </g>
 
         <!-- EAU -->
@@ -266,6 +306,7 @@ const grown = ref(false)
   transform-origin: 225px 60px;
   transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
   cursor: pointer;
+  filter: drop-shadow(3px 6px 5px rgba(0, 0, 0, 0.28));
 }
 
 .plant-group:hover .watering-can {
