@@ -26,6 +26,7 @@ html, body {
 .left {
   flex: 1;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: linear-gradient(to bottom, #0f766e, #064e3b);
@@ -33,8 +34,8 @@ html, body {
   font-size: 3rem;
   letter-spacing: 4px;
   font-weight: 600;
+  gap: 20px; 
 }
-
 /* SECTION DROITE */
 .right {
   flex: 1;

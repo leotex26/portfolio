@@ -1,4 +1,3 @@
-<!-- App.vue -->
 <template>
   <div class="container">
     <!-- ===================== -->
@@ -6,47 +5,44 @@
     <!-- ===================== -->
     <div class="left">
       <h1>PORTFOLIO</h1>
+      <InteractivePlant />
     </div>
 
     <!-- ===================== -->
     <!-- SECTION DROITE        -->
     <!-- ===================== -->
-<div class="right">
-  <div class="clock-container">
-    <div class="pulse-circle"></div>
-    <div class="clock">{{ time }}</div>
-  </div>
-
-  <!-- bloc texte avec effet verre dépoli -->
-  <div class="intro">
-    <h2 class="glow">LÉO TEXIER</h2>
-    <p class="subtitle">Développeur web et web mobile</p>
-    <p class="tagline">informatique responsable</p>
-  </div>
-
-  <div class="fireflies">
-  <div class="firefly"></div>
-  <div class="firefly"></div>
-  <div class="firefly"></div>
-  <div class="firefly"></div>
-  <div class="firefly"></div>
-  <div class="firefly"></div>
-  <div class="firefly"></div>
-  <div class="firefly"></div>
-  <div class="firefly"></div>
-</div>
-</div>
-</div>
-
-      <!-- ===================== -->
-    <!-- SECTION SEPARATOR        -->
-    <!-- ===================== -->
-
-      <div class="separator">
+    <div class="right">
+      <div class="clock-container">
+        <div class="pulse-circle"></div>
+        <div class="clock">{{ time }}</div>
       </div>
 
-            <div class="separator">
+      <!-- bloc texte avec effet verre dépoli -->
+      <div class="intro">
+        <h2 class="glow">LÉO TEXIER</h2>
+        <p class="subtitle">Développeur web et web mobile</p>
+        <p class="tagline">informatique responsable</p>
       </div>
+
+      <div class="fireflies">
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+        <div class="firefly"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== -->
+  <!-- SECTION SEPARATOR     -->
+  <!-- ===================== -->
+  <div class="separator"></div>
+  <div class="separator"></div>
 
   <!-- ===================== -->
   <!-- SECTION PORTFOLIO     -->
@@ -57,19 +53,25 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import PortfolioSection from './components/PortfolioSection.vue'
+import InteractivePlant from './components/InteractivePlant.vue'
 import './style.css'
 
 export default {
-  components: { PortfolioSection },
+  // Déclarez TOUS vos composants ici dans le même objet :
+  components: { 
+    PortfolioSection, 
+    InteractivePlant 
+  },
   setup() {
     const time = ref(new Date().toLocaleTimeString())
     const portfolioRef = ref(null)
+    let timer = null
 
     // Mise à jour de l'heure chaque seconde
     onMounted(() => {
-      setInterval(() => {
+      timer = setInterval(() => {
         time.value = new Date().toLocaleTimeString()
       }, 1000)
 
@@ -91,8 +93,11 @@ export default {
       }
     })
 
+    onUnmounted(() => {
+      if (timer) clearInterval(timer)
+    })
+
     return { time, portfolioRef }
   }
 }
 </script>
-
