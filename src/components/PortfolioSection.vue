@@ -47,3 +47,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.logos img[src*="node_js"] {
+  transform: translateX(10px);
+}
+</style>
