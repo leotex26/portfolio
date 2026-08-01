@@ -37,7 +37,7 @@
   </div>
 
   <div ref="contactRef">
-    <ContactSection @submit="handleContactSubmit" />
+    <ContactSection />
   </div>
 </template>
 
