@@ -1,3 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+}
+
+h1, h2, .navbar a, .clock {
+  font-family: 'Playfair Display', serif;
+  color: #fff6e3;
+}
+
+h1 {
+  letter-spacing: 4px;
+  font-weight: 700;
+}
+
+
+
 /* =============================== */
 /* RESET ET STYLES GLOBAUX        */
 /* =============================== */
