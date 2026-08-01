@@ -1,23 +1,18 @@
 <template>
+  <Navbar :active="activeSection" @scroll-to="scrollToSection" />
+
   <div class="container">
-    <!-- ===================== -->
-    <!-- SECTION GAUCHE        -->
-    <!-- ===================== -->
     <div class="left">
       <h1>PORTFOLIO</h1>
       <InteractivePlant />
     </div>
 
-    <!-- ===================== -->
-    <!-- SECTION DROITE        -->
-    <!-- ===================== -->
     <div class="right">
       <div class="clock-container">
         <div class="pulse-circle"></div>
         <div class="clock">{{ time }}</div>
       </div>
 
-      <!-- bloc texte avec effet verre dépoli -->
       <div class="intro">
         <h2 class="glow">LÉO TEXIER</h2>
         <p class="subtitle">Développeur web et web mobile</p>
@@ -25,30 +20,24 @@
       </div>
 
       <div class="fireflies">
-        <div class="firefly"></div>
-        <div class="firefly"></div>
-        <div class="firefly"></div>
-        <div class="firefly"></div>
-        <div class="firefly"></div>
-        <div class="firefly"></div>
-        <div class="firefly"></div>
-        <div class="firefly"></div>
-        <div class="firefly"></div>
+        <div class="firefly" v-for="n in 9" :key="n"></div>
       </div>
     </div>
   </div>
 
-  <!-- ===================== -->
-  <!-- SECTION SEPARATOR     -->
-  <!-- ===================== -->
   <div class="separator"></div>
   <div class="separator"></div>
 
-  <!-- ===================== -->
-  <!-- SECTION PORTFOLIO     -->
-  <!-- ===================== -->
-  <div ref="portfolioRef" class="portfolio-section hidden">
+  <div ref="portfolioRef" id="projets" class="portfolio-section hidden">
     <PortfolioSection />
+  </div>
+
+  <div ref="aproposRef">
+    <AboutSection />
+  </div>
+
+  <div ref="contactRef">
+    <ContactSection @submit="handleContactSubmit" />
   </div>
 </template>
 
@@ -56,26 +45,44 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import PortfolioSection from './components/PortfolioSection.vue'
 import InteractivePlant from './components/InteractivePlant.vue'
+import Navbar from './components/Navbar.vue'
+import AboutSection from './components/AboutSection.vue'
+import ContactSection from './components/ContactSection.vue'
 import './style.css'
 
 export default {
-  // Déclarez TOUS vos composants ici dans le même objet :
-  components: { 
-    PortfolioSection, 
-    InteractivePlant 
+  components: {
+    PortfolioSection,
+    InteractivePlant,
+    Navbar,
+    AboutSection,
+    ContactSection
   },
   setup() {
     const time = ref(new Date().toLocaleTimeString())
     const portfolioRef = ref(null)
+    const aproposRef = ref(null)
+    const contactRef = ref(null)
+    const activeSection = ref('projets')
     let timer = null
 
-    // Mise à jour de l'heure chaque seconde
+    const sectionRefs = { projets: portfolioRef, apropos: aproposRef, contact: contactRef }
+
+    function scrollToSection(id) {
+      sectionRefs[id]?.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      activeSection.value = id
+    }
+
+    function handleContactSubmit(form) {
+      console.log('Formulaire de contact :', form)
+      // à connecter plus tard à un service d'envoi (mailto, API, etc.)
+    }
+
     onMounted(() => {
       timer = setInterval(() => {
         time.value = new Date().toLocaleTimeString()
       }, 1000)
 
-      // Animation d'apparition du portfolio au scroll
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -87,17 +94,14 @@ export default {
         },
         { threshold: 0.2 }
       )
-
-      if (portfolioRef.value) {
-        observer.observe(portfolioRef.value)
-      }
+      if (portfolioRef.value) observer.observe(portfolioRef.value)
     })
 
     onUnmounted(() => {
       if (timer) clearInterval(timer)
     })
 
-    return { time, portfolioRef }
+    return { time, portfolioRef, aproposRef, contactRef, activeSection, scrollToSection, handleContactSubmit }
   }
 }
 </script>
